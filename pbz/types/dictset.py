@@ -25,3 +25,9 @@ class DictSet(dict):
             key : self.get(key, other.get(key, None))
             for key in getattr({*self}, op)({*other})
         }
+
+
+if __name__ == '__main__':
+    print(DictSet(name='Pebaz') | DictSet(age=24))
+    print(DictSet(name='Pebaz', age=24) | DictSet(age=24))
+    print(DictSet(name='Pebaz', age=24, addr='Foo') | DictSet(age=24))
