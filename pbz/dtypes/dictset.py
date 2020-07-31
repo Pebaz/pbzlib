@@ -6,6 +6,8 @@ class DictSet(dict):
     """
     """
 
+    # TODO(pebaz): https://realpython.com/python-sets/
+
     # TODO(pebaz): Find out how to do this dynamically.
     # for op in 'or and'.split():
     #     operation = f'__{op}__'
