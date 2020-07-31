@@ -9,6 +9,7 @@ http://behave.github.io/behave.example/datatype/builtin_types.html
 
 from typing import List
 import behave
+from parse_type import TypeBuilder
 
 def register_custom_type(pattern: str):
     """
@@ -70,3 +71,23 @@ def register_choice_type(**kwargs: List[str]):
         behave.register_type(**{type_name : TypeBuilder.make_choice(choices)})
 
 
+@register_custom_type(r"\'.+\'")
+def String(text):
+    """
+    Usage Example:
+      Step: When I get an input like 'This'
+      Impl: @when('I get an input like {string:String})
+    """
+    # FIXME(pebaz): This is not correct
+    return text.strip("'")
+
+
+@register_custom_type(r"\[({String},\s?)?\'.+\'\]")
+def StringList(text):
+    """
+    Usage Example:
+      Step: When I get an input like this: ['One', 'Two', 'Three']
+      Impl: @when('I get an input like this: {the_list:StringList}')
+    """
+    body = text[1:-1]
+    return body.split(',')  # FIXME(pebaz): This is not correct
