@@ -1,4 +1,4 @@
-from pbz.types.heap import *
+from pbz.dtypes.heap import *
 
 def test_creation():
     h = MinHeap([4, 5, 2, 1, 9, 10])

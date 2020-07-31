@@ -28,6 +28,12 @@ class DictSet(dict):
             for key in getattr({*self}, op)({*other})
         }
 
+    def merge_deep(self, other):
+        """
+        Do a breadth-first-search to merge the keys. This could be useful in
+        merging JSON structures effectively.
+        """
+
 
 if __name__ == '__main__':
     print(DictSet(name='Pebaz') | DictSet(age=24))
