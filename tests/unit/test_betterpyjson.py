@@ -1,6 +1,4 @@
-import sys; sys.path.append('..')  # Allow tests to see betterpyjson package
 from pbz.betterpyjson import *
-
 
 def test_creation():
 	obj = load_dict(dict(name='Pebaz', age=24))
