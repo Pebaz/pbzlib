@@ -5,3 +5,7 @@ chemical
 # pbz.test.behave_utils
 parse_type
 behave
+
+
+# pbz.term_colors
+colorama
