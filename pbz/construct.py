@@ -19,6 +19,8 @@ class CharacterString:
 
 Char = CharacterString()  # string: Char[100] == ('c', 100)
 
+'4c' == 'cccc'
+
 for type_ in TYPE_MAP:
     globals()[type_] = type(type_, tuple(), {})
 
