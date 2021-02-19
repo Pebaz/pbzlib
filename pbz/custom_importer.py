@@ -16,8 +16,8 @@ from importlib.util import spec_from_file_location
 from PIL import Image
 
 
-class MyMetaFinder(MetaPathFinder):
-    def find_spec(self, fullname, path, target=None): 
+class ImageFinder(MetaPathFinder):
+    def find_spec(self, fullname, path, **kwargs): 
         files_in_cwd = {
             path.stem: path
             for path in Path().iterdir()
@@ -28,11 +28,11 @@ class MyMetaFinder(MetaPathFinder):
             return spec_from_file_location(
                 fullname,
                 path,
-                loader=MyLoader(files_in_cwd[fullname])
+                loader=ImageLoader(files_in_cwd[fullname])
             )
 
 
-class MyLoader(Loader):
+class ImageLoader(Loader):
     def __init__(self, filename):
         "Record the filename for later."
         self.filename = filename
@@ -46,7 +46,7 @@ class MyLoader(Loader):
 
 
 # Insert the finder into the import machinery
-sys.meta_path.insert(0, MyMetaFinder())
+sys.meta_path.insert(0, ImageFinder())
 
 
 if __name__ == '__main__':
