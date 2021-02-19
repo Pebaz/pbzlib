@@ -12,7 +12,6 @@ import sys
 from pathlib import Path
 from importlib.util import spec_from_file_location
 from importlib.abc import Loader, MetaPathFinder
-from importlib.util import spec_from_file_location
 from PIL import Image
 
 
