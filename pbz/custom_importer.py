@@ -16,7 +16,7 @@ from PIL import Image
 
 
 class ImageFinder(MetaPathFinder):
-    def find_spec(self, fullname, path, **kwargs): 
+    def find_spec(self, fullname, path, *args): 
         files_in_cwd = {
             path.stem: path
             for path in Path().iterdir()
