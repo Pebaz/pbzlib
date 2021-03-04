@@ -20,7 +20,7 @@ class LinkedList:
         for i in iterable:
             self.insert(i)
 
-    def insert(self, node):
+    def insert(self, node):  # O(1) time | O(1) space
         if self.head and self.tail:
             self.tail.next = node
             self.tail = node
@@ -29,7 +29,7 @@ class LinkedList:
             self.tail = node
         self.length += 1
 
-    def search(self, value):
+    def search(self, value):  # O(N) time | O(1) space
         node = self.head
         while node:
             if node.value == value:
@@ -37,7 +37,7 @@ class LinkedList:
             else:
                 node = node.next
 
-    def delete(self, value):
+    def delete(self, value):  # O(N) time | O(1) space
         removed = None
 
         if self.length == 0:
@@ -75,7 +75,7 @@ class LinkedList:
             self.length -= 1
             return removed
 
-    def reverse(self):
+    def reverse(self):  # O(N) time | O(1) space
         if self.length > 1:
             prev = None
             node = self.head
@@ -85,6 +85,20 @@ class LinkedList:
                 node.next = prev
                 prev = node
                 node = save
+    
+    def __iter__(self):
+        node = self.head
+        while node:
+            yield node
+            node = node.next
+    
+    def __reversed__(self):
+        self.reverse()
+        node = self.head
+        while node:
+            yield node
+            node = node.next
+        self.reverse()
 
     def __str__(self):
         l = []
