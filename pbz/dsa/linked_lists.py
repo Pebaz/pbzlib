@@ -12,7 +12,7 @@ class Node:
 
 class LinkedList:
     def __init__(self, head=None, tail=None):
-        self.length = 2 if head and tail else (1 if head or tail else 0)
+        self.length = sum((head, tail))
         self.head = head
         self.tail = tail
 
