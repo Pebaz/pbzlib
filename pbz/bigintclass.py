@@ -57,23 +57,15 @@ class Struct:
     
     @classmethod
     def total_bytes(cls):
-        struct_def = cls.get_struct_def()
-
-        type_sizes = {
-            'c': 1,
-            'i': 4,
-            'f': 4,
-            'b': 1
-        }
-
-        return sum(type_sizes[c] for c in struct_def)
+        return struct.calcsize(cls.get_struct_def())
 
 
     @classmethod
     def from_(cls, bytes_):
-        int_to_bytes = bytes_.to_bytes(cls.total_bytes() + 1, byteorder='big')
+        int_to_bytes = bytes_.to_bytes(cls.total_bytes(), byteorder='big')
         values = iter(struct.unpack(cls.get_struct_def(), int_to_bytes))
         kwargs = {}
+
         for name, type_ in cls.__annotations__.items():
             if isinstance(type_, String):
                 string = b''.join(next(values) for _ in range(type_.length))
@@ -82,23 +74,6 @@ class Struct:
                 kwargs[name] = type_(next(values))
 
         return cls(**kwargs)
-
-    @staticmethod
-    def parse_int(byte_stream):
-        slice_ = [next(byte_stream) for _ in range(4)]
-
-    @staticmethod
-    def parse_bool(byte_stream):
-        byte = next(byte_stream)
-    
-    @staticmethod
-    def parse_char(byte_stream):
-        byte = next(byte_stream)
-        return chr(byte)
-    
-    @staticmethod
-    def parse_float(byte_stream):
-        slice_ = [next(byte_stream) for _ in range(4)]
     
     @classmethod
     def get_struct_def(cls):
@@ -127,25 +102,41 @@ class Struct:
         return str(self)
 
 
-class Planet(Struct):
-    name: String(10)
-    terrestrial: bool
-    orbit_radius_miles_in_millions: float
+if __name__ == '__main__':
+    class Planet(Struct):
+        name: String(10)
+        terrestrial: bool
+        orbit_radius_miles_in_millions: float
 
 
-a = Planet(
-    name='Earth',
-    terrestrial=True,
-    orbit_radius_miles_in_millions=39.0
-)
+    a = Planet(
+        name='Earth',
+        terrestrial=True,
+        orbit_radius_miles_in_millions=39.0
+    )
 
-print(a.name)
-print(a.get_struct_def())
-print(a.to())
+    print(a.name)
+    print(a.get_struct_def())
+    print(a.to())
 
-planet = Planet.from_(a.to())
-print(planet)
+    planet = Planet.from_(a.to())
+    print(planet)
 
-assert planet.name == 'Earth'
-assert planet.terrestrial == True
-assert planet.orbit_radius_miles_in_millions == 39.0
+    assert planet.name == 'Earth'
+    assert planet.terrestrial == True
+    assert planet.orbit_radius_miles_in_millions == 39.0
+
+    class Planet2(Struct):
+        name: String(10)
+        name2: String(10)
+        terrestrial: bool
+        orbit_radius_miles_in_millions: float
+    
+    a = Planet2(
+        name='Earth',
+        name2='!',
+        terrestrial=True,
+        orbit_radius_miles_in_millions=39.0
+    )
+
+    print(Planet2.from_(a.to()))
