@@ -46,6 +46,48 @@ class Stack:
         return str(self)
 
 
+class Queue:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.length = 0
+        self.front = 0
+        self.back = 0
+        self.data = [None] * capacity
+    
+    def __len__(self):
+        return self.length
+
+    def insert(self, item):
+        if len(self) >= self.capacity:
+            raise Exception("Queue Full")
+
+        index = (self.front + self.length) % self.capacity
+        self.data[index] = item
+        self.back = index
+        self.length += 1
+    
+    def remove(self):
+        if not len(self):
+            raise Exception("Queue Empty")
+        
+        item = self.data[self.front]
+        self.data[self.front] = None
+        self.front = (self.front + 1) % self.capacity
+        self.length -= 1
+        return item
+    
+    def __iter__(self):
+        while self.length:
+            yield self.remove()
+    
+    def __str__(self):
+        return str(list(filter(lambda x: x, self.data)))
+    
+    def __repr__(self):
+        return str(self)
+        
+
+
 if __name__ == '__main__':
     stack = Stack(3)
     stack.insert(1)
@@ -60,4 +102,24 @@ if __name__ == '__main__':
     for i in range(10):
         stack.insert(i)
     print(stack)
+
+
+    print('-' * 80)
+    queue = Queue(5)
+    queue.insert(1)
+    queue.insert(2)
+    queue.insert(3)
+    queue.insert(4)
+    assert len(queue) == 4
+    print(queue)
+    print(queue.remove())
+    queue.insert(5)
+    queue.insert(6)
+    assert len(queue) == 5
+    print(queue)
+
+    items = range(2, 6 + 1)
+    for i, correct in zip(queue, items):
+        print(i)
+        assert i == correct
 
