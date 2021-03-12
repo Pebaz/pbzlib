@@ -200,3 +200,62 @@ class DoublelyLinkedList:
                 node = node.next
 
 
+
+class ArrayList:
+    def __init__(self, capacity=10):
+        self.capacity = capacity
+        self.length = 0
+        self.data = [None] * capacity
+
+    def __len__(self):
+        return self.length
+    
+    def search(self, item):
+        for i in range(len(self)):
+            if self.data[i] == item:
+                return i
+        return -1
+    
+    def access(self, index):
+        assert index < len(self), f'Out of bounds: {index}'
+        return self.data[index]
+    
+    def insert(self, item):
+        if len(self) < self.capacity:
+            self.data[len(self)] = item
+
+        else:
+            new_capacity = self.capacity * 2
+            new_data = [None] * new_capacity
+
+            for i, e in enumerate(self.data):
+                new_data[i] = e
+
+            new_data[self.length] = item
+
+            self.capacity = new_capacity
+            self.data = new_data
+
+        self.length += 1
+    
+    def remove(self, index):
+        assert index < len(self), f'Out of bounds: {index}'
+        self.data[index] = None
+
+        for i in range(index, len(self) - 1):
+            self.data[i], self.data[i + 1] = self.data[i + 1], self.data[i]
+
+        self.length -= 1
+    
+    def __getitem__(self, index):
+        return self.access(index)
+    
+    def __iter__(self):
+        for i in range(len(self)):
+            yield self.data[i]
+    
+    def __str__(self):
+        return str([i for i in self if i])
+    
+    def __repr__(self):
+        return str(self)
