@@ -1,0 +1,20 @@
+<ROOT>
+    <FOO_LIST>
+        <FOO>1</FOO>
+        <FOO>2</FOO>
+        <FOO>3</FOO>
+    </FOO_LIST>
+    <BAR_LIST>
+        <BAR>
+            <BAZ>
+                <PBZ>asdf</PBZ>
+            </BAZ>
+        </BAR>
+        <BAR>
+            <FOO>4></FOO>
+            <BAZ>
+                <PBZ><FOO>5</FOO></PBZ>
+            </BAZ>
+        </BAR>
+    </BAR_LIST>
+</ROOT>

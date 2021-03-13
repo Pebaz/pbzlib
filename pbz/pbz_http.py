@@ -5,8 +5,12 @@ contains all that is necessary to make HTTP requests. This module simply unlocks
 it and makes that functionality easier to use.
 """
 
-from urllib.request import Request, urlopen
-from urllib.parse import urlencode
+try:
+    from urllib.request import Request, urlopen
+    from urllib.parse import urlencode
+except ImportError:
+    import warnings
+    warnings.warn('Something\'s up.')
 
 
 class HttpRequest:
