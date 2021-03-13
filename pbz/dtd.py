@@ -367,3 +367,9 @@ Frame = Group(
 FrameForward << Frame
 
 print(Frame.parseString(element))
+
+
+print()
+
+for name, element in elements:
+    print(Frame.parseString(element))
