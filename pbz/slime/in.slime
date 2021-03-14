@@ -1,3 +1,16 @@
+
+
+
+
+:>
+Danger.
+This syntax is too large to implement initially.
+Must add generics after. This is too much.
+<:
+
+
+
+
 :: First Slime File
 
 data-type foo-bar-baz
