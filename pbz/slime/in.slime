@@ -1,0 +1,12 @@
+:: First Slime File
+
+data-type foo-bar-baz
+[
+    age i32!
+    age !T  :: Bang before == Generic Type XD
+
+    fn get-age<I> {!i32} ()  :: Implies I == Self == foo-bar-baz
+    [
+        ret ./age  :: `./` is always `self.`
+    ]
+]
